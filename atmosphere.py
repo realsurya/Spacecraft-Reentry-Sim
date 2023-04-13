@@ -6,6 +6,7 @@ def density(h):
     :param h float: Height above MSL (m)
     :return rho float: Density at altitude h (kg/m^3)
     '''
+    
     a0 = 7.001985e-2 # define polynomial fit coefficients
     a1 = -4.336216e-3
     a2 = -5.009831e-3
