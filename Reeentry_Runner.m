@@ -36,7 +36,7 @@ plot(t(boolArr), V(boolArr));
 grid on;
 xlabel('Time (sec)');
 ylabel('Velocity (m/s)')
-title('Time Velocity Profile of Spacecraft')
+title('Velocity of Spacecraft Vs. Time')
 
 figure();
 plot(t(boolArr), Gamma(boolArr));
@@ -57,11 +57,19 @@ plot(t(boolArr), h(boolArr));
 grid on;
 xlabel('Time (sec)');
 ylabel('Height (m)');
-title(;)
+title("Height of Spacecraft Vs. Time")
 
 tmod = t(boolArr);
 figure();
 plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
 grid on;
 xlabel('Time (sec)');
-ylabel('G loading (g)');
+ylabel('G Loading (g)');
+title("Axial Loading of Spacecraft Vs. Time");
+
+figure();
+plot(S(boolArr), h(boolArr));
+grid on;
+xlabel('Downrange (m)');
+ylabel('Height (m)');
+title("Reentry Profile of Spacecraft")
