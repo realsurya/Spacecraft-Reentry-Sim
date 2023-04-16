@@ -4,6 +4,7 @@ function rho = density(h)
     %          Valid up to 180 km
     %:param h float: Height above MSL (km)
     %:return rho float: Density at altitude h (kg/m^3)
+    % See : https://www.spaceacademy.net.au/watch/debris/atmosmod.htm
     
     a0 = 7.001985e-2; % define polynomial fit coefficients
     a1 = -4.336216e-3;
@@ -16,5 +17,5 @@ function rho = density(h)
     
     polyfn = ((((((a7*h + a6)*h + a5)*h + a4)*h + a3)*h + a2)*h + a1)*h + a0;
     rho = 10^polyfn;
-    
+
 end
