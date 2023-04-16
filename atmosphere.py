@@ -3,7 +3,7 @@ def density(h):
     :density: Returns density at altitude h through
               CIRA Reference Atmosphere Model.
               Valid up to 180 km
-    :param h float: Height above MSL (m)
+    :param h float: Height above MSL (km)
     :return rho float: Density at altitude h (kg/m^3)
     '''
     
@@ -16,7 +16,6 @@ def density(h):
     a6 = -7.189421e-11
     a7 = 1.060067e-13
     
-    h = h/1000
     polyfn = ((((((a7*h + a6)*h + a5)*h + a4)*h + a3)*h + a2)*h + a1)*h + a0
     rho = 10**polyfn
     
