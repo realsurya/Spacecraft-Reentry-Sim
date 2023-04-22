@@ -29,6 +29,9 @@ clear;clc;close all force hidden;
     Gamma = y(:,2)*(180/pi);
     S = y(:,3);
     h = R-(Re*1000);
+    a = sonicspeed(h);
+    M = V ./ a;
+    ccoeff = convcoeff(M);
 
 % Plot stuff:
 figure();
@@ -39,18 +42,32 @@ ylabel('Velocity (m/s)')
 title('Velocity of Spacecraft Vs. Time')
 
 figure();
-plot(t(boolArr), Gamma(boolArr));
+plot(t(boolArr), M(boolArr));
 grid on;
 xlabel('Time (sec)');
-ylabel('FPA (deg)');
-title('FPA of Spacecraft Vs. Time');
+ylabel('Mach Number')
+title('Mach Number of Spacecraft Vs. Time')
 
 figure();
-plot(t(boolArr), S(boolArr));
+plot(t(boolArr), ccoeff(boolArr));
 grid on;
 xlabel('Time (sec)');
-ylabel('Downrange (m)');
-title("Downrange Motion of Spacecraft Vs. Time")
+ylabel('Conv heat Transfer Coeff (W/m^2*k)')
+title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
+
+%figure();
+%plot(t(boolArr), Gamma(boolArr));
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('FPA (deg)');
+%title('FPA of Spacecraft Vs. Time');
+
+%figure();
+%plot(t(boolArr), S(boolArr));
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('Downrange (m)');
+%title("Downrange Motion of Spacecraft Vs. Time")
 
 figure();
 plot(t(boolArr), h(boolArr));
@@ -59,17 +76,17 @@ xlabel('Time (sec)');
 ylabel('Height (m)');
 title("Height of Spacecraft Vs. Time")
 
-tmod = t(boolArr);
-figure();
-plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
-grid on;
-xlabel('Time (sec)');
-ylabel('G Loading (g)');
-title("Axial Loading of Spacecraft Vs. Time");
+%tmod = t(boolArr);
+%figure();
+%plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('G Loading (g)');
+%title("Axial Loading of Spacecraft Vs. Time");
 
-figure();
-plot(S(boolArr), h(boolArr));
-grid on;
-xlabel('Downrange (m)');
-ylabel('Height (m)');
-title("Reentry Profile of Spacecraft")
+%figure();
+%plot(S(boolArr), h(boolArr));
+%grid on;
+%xlabel('Downrange (m)');
+%ylabel('Height (m)');
+%title("Reentry Profile of Spacecraft")
