@@ -29,6 +29,15 @@ clear;clc;close all force hidden;
     Gamma = y(:,2)*(180/pi);
     S = y(:,3);
     h = R-(Re*1000);
+    a = sonicspeed(h);
+    M = V ./ a;
+    ccoeff = convcoeff(M);
+
+% Find Boundary Layer Teßmperature
+    gam = 1.4;
+    T0 = temperature(h(boolArr));
+    Tratio = (((2.*gam.*(M(boolArr).^2)) - (gam-1)) .* (((gam-1).*(M(boolArr).^2))+2))./((((gam-1)^2).*(M.^2)) + 2 );
+    T = Tratio.*T0;
 
 % Plot stuff:
 figure();
@@ -36,30 +45,61 @@ plot(t(boolArr), V(boolArr));
 grid on;
 xlabel('Time (sec)');
 ylabel('Velocity (m/s)')
-title('Time Velocity Profile of Spacecraft')
+title('Velocity of Spacecraft Vs. Time')
 
 figure();
-plot(t(boolArr), Gamma(boolArr));
+plot(t(boolArr), M(boolArr));
 grid on;
 xlabel('Time (sec)');
-ylabel('FPA (deg)');
-title('FPA of spacecraft over ')
+ylabel('Mach Number')
+title('Mach Number of Spacecraft Vs. Time')
 
 figure();
-plot(t(boolArr), S(boolArr));
+plot(t(boolArr), ccoeff(boolArr));
 grid on;
 xlabel('Time (sec)');
-ylabel('Downrange (m)');
+ylabel('Conv heat Transfer Coeff (W/m^2*k)')
+title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
+
+figure();
+plot(t(boolArr), ccoeff(boolArr));
+grid on;
+xlabel('Time (sec)');
+ylabel('Boundary l (k)')
+title('Boundary Layer Temperature Vs. Time')
+
+%figure();
+%plot(t(boolArr), Gamma(boolArr));
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('FPA (deg)');
+%title('FPA of Spacecraft Vs. Time');
+
+%figure();
+%plot(t(boolArr), S(boolArr));
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('Downrange (m)');
+%title("Downrange Motion of Spacecraft Vs. Time")
 
 figure();
 plot(t(boolArr), h(boolArr));
 grid on;
 xlabel('Time (sec)');
 ylabel('Height (m)');
+title("Height of Spacecraft Vs. Time")
 
-tmod = t(boolArr);
-figure();
-plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
-grid on;
-xlabel('Time (sec)');
-ylabel('G loading (g)');
+%tmod = t(boolArr);
+%figure();
+%plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('G Loading (g)');
+%title("Axial Loading of Spacecraft Vs. Time");
+
+%figure();
+%plot(S(boolArr), h(boolArr));
+%grid on;
+%xlabel('Downrange (m)');
+%ylabel('Height (m)');
+%title("Reentry Profile of Spacecraft")
