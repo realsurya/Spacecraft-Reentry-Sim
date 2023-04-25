@@ -33,23 +33,71 @@ clear;clc;close all force hidden;
     M = V ./ a;
     ccoeff = convcoeff(M);
 
+
+    % calc heating
+    v_excl = V(boolArr);
+    q = .02.*(.08/4).*(density(h(boolArr)./1000)).*(power(v_excl,3));
+
+    figure();
+
+    subplot(3,1,1);
+    plot(t(boolArr), q/1000, 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Heat flux (kW/m^2)')
+    title('Heat flux imparted on Spacecraft Vs. Time')
+    x = t(boolArr);
+    y = q;
+    Q = [];
+
+    Ti = 30;
+    cp = 700;
+    for idx = 2:length(y)
+        Q = [Q; trapz(x(1:idx), y(1:idx))*(6.8/2)];
+    end
+
+    subplot(3,1,2);
+    plot(x(2:end), Q, 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Heat Transfer (Joules)')
+    title('Cumulative Heat Transfer to Spacecraft Vs. Time') 
+
+    dT = Q ./(m*cp);
+
+    subplot(3,1,3);
+    plot(x(2:end), Ti+dT, 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Spacecraft internal temp (C)')
+    title('Internal temperature of Spacecraft Vs. Time') 
+
 % Plot stuff:
 figure();
-plot(t(boolArr), V(boolArr));
+
+subplot(3,1,1);
+plot(t(boolArr), V(boolArr), 'LineWidth',2);
 grid on;
 xlabel('Time (sec)');
 ylabel('Velocity (m/s)')
 title('Velocity of Spacecraft Vs. Time')
 
-figure();
-plot(t(boolArr), M(boolArr));
+subplot(3,1,2);
+plot(t(boolArr), h(boolArr)./1000, 'LineWidth',2);
+grid on;
+xlabel('Time (sec)');
+ylabel('Height (km)');
+title("Height of Spacecraft Vs. Time")
+
+subplot(3,1,3);
+plot(t(boolArr), M(boolArr), 'LineWidth',2);
 grid on;
 xlabel('Time (sec)');
 ylabel('Mach Number')
 title('Mach Number of Spacecraft Vs. Time')
 
 figure();
-plot(t(boolArr), ccoeff(boolArr));
+plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
 grid on;
 xlabel('Time (sec)');
 ylabel('Conv heat Transfer Coeff (W/m^2*k)')
@@ -69,12 +117,6 @@ title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
 %ylabel('Downrange (m)');
 %title("Downrange Motion of Spacecraft Vs. Time")
 
-figure();
-plot(t(boolArr), h(boolArr));
-grid on;
-xlabel('Time (sec)');
-ylabel('Height (m)');
-title("Height of Spacecraft Vs. Time")
 
 %tmod = t(boolArr);
 %figure();

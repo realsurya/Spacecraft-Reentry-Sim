@@ -15,7 +15,7 @@ function rho = density(h)
     a6 = -7.189421e-11;
     a7 = 1.060067e-13;
     
-    polyfn = ((((((a7*h + a6)*h + a5)*h + a4)*h + a3)*h + a2)*h + a1)*h + a0;
-    rho = 10^polyfn;
+    polyfn = ((((((a7.*h + a6).*h + a5).*h + a4).*h + a3).*h + a2).*h + a1).*h + a0;
+    rho = 10.^polyfn;
 
 end
