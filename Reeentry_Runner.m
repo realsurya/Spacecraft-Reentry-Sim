@@ -1,4 +1,17 @@
 clear;clc;close all force hidden;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     AAE 338 Final Project         %
+% Group 17 - Soyuz Reentry Analysis %
+%  Surya M - smanikha@purdue.edu    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This main script runs the reentry simulation by leveraging EOMs found in
+% OrbitEoms.m and the initial conditions laid out in this file.
+%   Dependencies:
+%       - OrbitEoms.m : Reentry planar flight EOMS implementation
+%       - temperature.m : ISA implementation for atmospheric temperature
+%       - density.m : CIRA Ref. Atm. Model implementation for atm density
+%       - sonicspeed.m : Calcualte sonic speed at a certain altitude
 
 % Soyuz Entry ICs:
     entryAlt =  122*1000; % Height of initial thermal interface (m)
@@ -20,41 +33,44 @@ clear;clc;close all force hidden;
     options = odeset('RelTol',1e-12, 'AbsTol',1e-12);
 
 % Run Simulation
-    [t,y] = ode45(@(t,y) OrbitEOMS(t,y,cd,mu,ld,Re,m,Ac), [0,tf], [vi, fpa, 0, entryAlt+(Re*1000)],options);
+    [t,y] = ode45(@(t,y) OrbitEOMS(t,y,cd,mu,ld,Re,m,Ac), ...
+        [0,tf], [vi, fpa, 0, entryAlt+(Re*1000)],options);
 
 % Extract values:
-    R = y(:,4);
-    boolArr = (R-(Re*1000)) > 0;
-    V = y(:,1);
-    Gamma = y(:,2)*(180/pi);
-    S = y(:,3);
-    h = R-(Re*1000);
-    a = sonicspeed(h);
-    M = V ./ a;
-    ccoeff = convcoeff(M);
+    R = y(:,4); % Radius result array
+    boolArr = (R-(Re*1000)) > 0; % boolean array to get values where h > 0
+    V = y(:,1); % Velocity result array
+    Gamma = y(:,2)*(180/pi); % FPA result array
+    S = y(:,3); % Downrange travel result array
+    h = R-(Re*1000); % Height result array
+    a = sonicspeed(h); % sonnic speed at each point in trajectory
+    M = V ./ a; % Mach number at each point in trajectory
 
-
-    % calc heating
+% Calculate Reentry Heating
     v_excl = V(boolArr);
-    q = .02.*(.08/4).*(density(h(boolArr)./1000)).*(power(v_excl,3));
+    q = .02.*(.08/4).*(density( ... % Calculate instantaneous heat flux
+        h(boolArr)./1000)).*(power(v_excl,3));
 
+    Ti = 30; % Initial spacecraft temp condition
+    cp = 700; % Spacecraft specific heat capacity
+
+    x = t(boolArr);
+    y = q;
+    Q = [];
+    for idx = 2:length(y) % integrate q to fid heat addition Q
+        Q = [Q; trapz(x(1:idx), y(1:idx))*(6.8/2)];
+    end
+
+    dT = Q ./(m*cp); % find temperature curve Q = mcpdt
+
+ % Plot Reentry Heat Information
     figure();
-
     subplot(3,1,1);
     plot(t(boolArr), q/1000, 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
     ylabel('Heat flux (kW/m^2)')
     title('Heat flux imparted on Spacecraft Vs. Time')
-    x = t(boolArr);
-    y = q;
-    Q = [];
-
-    Ti = 30;
-    cp = 700;
-    for idx = 2:length(y)
-        Q = [Q; trapz(x(1:idx), y(1:idx))*(6.8/2)];
-    end
 
     subplot(3,1,2);
     plot(x(2:end), Q, 'LineWidth',2);
@@ -63,8 +79,6 @@ clear;clc;close all force hidden;
     ylabel('Heat Transfer (Joules)')
     title('Cumulative Heat Transfer to Spacecraft Vs. Time') 
 
-    dT = Q ./(m*cp);
-
     subplot(3,1,3);
     plot(x(2:end), Ti+dT, 'LineWidth',2);
     grid on;
@@ -72,36 +86,35 @@ clear;clc;close all force hidden;
     ylabel('Spacecraft internal temp (C)')
     title('Internal temperature of Spacecraft Vs. Time') 
 
-% Plot stuff:
-figure();
+% Plot Reentry Trajectory:
+    figure();
+    subplot(3,1,1);
+    plot(t(boolArr), V(boolArr), 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Velocity (m/s)')
+    title('Velocity of Spacecraft Vs. Time')
+    
+    subplot(3,1,2);
+    plot(t(boolArr), h(boolArr)./1000, 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Height (km)');
+    title("Height of Spacecraft Vs. Time")
+    
+    subplot(3,1,3);
+    plot(t(boolArr), M(boolArr), 'LineWidth',2);
+    grid on;
+    xlabel('Time (sec)');
+    ylabel('Mach Number')
+    title('Mach Number of Spacecraft Vs. Time')
 
-subplot(3,1,1);
-plot(t(boolArr), V(boolArr), 'LineWidth',2);
-grid on;
-xlabel('Time (sec)');
-ylabel('Velocity (m/s)')
-title('Velocity of Spacecraft Vs. Time')
-
-subplot(3,1,2);
-plot(t(boolArr), h(boolArr)./1000, 'LineWidth',2);
-grid on;
-xlabel('Time (sec)');
-ylabel('Height (km)');
-title("Height of Spacecraft Vs. Time")
-
-subplot(3,1,3);
-plot(t(boolArr), M(boolArr), 'LineWidth',2);
-grid on;
-xlabel('Time (sec)');
-ylabel('Mach Number')
-title('Mach Number of Spacecraft Vs. Time')
-
-figure();
-plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
-grid on;
-xlabel('Time (sec)');
-ylabel('Conv heat Transfer Coeff (W/m^2*k)')
-title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
+%figure();
+%plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
+%grid on;
+%xlabel('Time (sec)');
+%ylabel('Conv heat Transfer Coeff (W/m^2*k)')
+%title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
 
 %figure();
 %plot(t(boolArr), Gamma(boolArr));
