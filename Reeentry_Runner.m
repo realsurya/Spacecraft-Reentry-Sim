@@ -120,6 +120,18 @@ clear;clc;close all force hidden;
     ylabel('Mach Number')
     title('Mach Number of Soyuz Vs. Time')
 
+% Plot internal temp with safety regions:
+    figure(); hold on;
+    plot(x(2:end), Tim+dT, 'LineWidth',2, 'LineStyle', '-');
+    plot(x(2:end), Til+dT, 'LineWidth',1, 'LineStyle', '--', Color='black');
+    plot(x(2:end), Tiu+dT, 'LineWidth',1, 'LineStyle', '--', Color='black');
+    yline(40, 'g-', 'LineWidth',2);
+    yline(53, 'r-', 'LineWidth',2);
+    grid on; legend(["Soyuz Internal Temp (Mid)","Lower/Upper Internal Temp Bounds","", "Human Safety Threshold", "Extreme Danger Threshold"]);
+    xlabel('Time (sec)');
+    ylabel('Spacecraft Internal temp (C)')
+    title('Internal Temperature of Soyuz Vs. Time (With Human Survivability Limits)') 
+
 % Old Plots, No longer needed: 
     %figure();
     %plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
