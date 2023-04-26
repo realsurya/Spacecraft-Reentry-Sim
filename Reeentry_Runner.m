@@ -1,9 +1,9 @@
-clear;clc;close all force hidden;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     AAE 338 Final Project         %
 % Group 17 - Soyuz Reentry Analysis %
 %  Surya M - smanikha@purdue.edu    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear;clc;close all force hidden;
 
 % This main script runs the reentry simulation by leveraging EOMs found in
 % OrbitEoms.m and the initial conditions laid out in this file.
@@ -51,7 +51,9 @@ clear;clc;close all force hidden;
     q = .02.*(.08/4).*(density( ... % Calculate instantaneous heat flux
         h(boolArr)./1000)).*(power(v_excl,3));
 
-    Ti = 30; % Initial spacecraft temp condition
+    Tim = 35; % Initial spacecraft temp condition bounds (C)
+    Tiu = 40;
+    Til = 30;
     cp = 700; % Spacecraft specific heat capacity
 
     x = t(boolArr);
@@ -79,9 +81,11 @@ clear;clc;close all force hidden;
     ylabel('Heat Transfer (Joules)')
     title('Cumulative Heat Transfer to Spacecraft Vs. Time') 
 
-    subplot(3,1,3);
-    plot(x(2:end), Ti+dT, 'LineWidth',2);
-    grid on;
+    subplot(3,1,3); hold on;
+    plot(x(2:end), Tim+dT, 'LineWidth',2, 'LineStyle', '-');
+    plot(x(2:end), Til+dT, 'LineWidth',1, 'LineStyle', '--', Color='Red');
+    plot(x(2:end), Tiu+dT, 'LineWidth',1, 'LineStyle', '--', Color='Red');
+    grid on; legend(["Soyuz Internal Temp","Lower/Upper Bounds"]);
     xlabel('Time (sec)');
     ylabel('Spacecraft internal temp (C)')
     title('Internal temperature of Spacecraft Vs. Time') 
