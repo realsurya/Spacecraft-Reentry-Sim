@@ -131,8 +131,8 @@ clear;clc;close all force hidden;
     legend(["Soyuz Internal Temp (Mid)","Lower/Upper Internal Temp Bounds",...
             "", "Human Safety Threshold", "Extreme Danger Threshold"]);
     xlabel('Time (sec)');
-    ylabel('Spacecraft Internal temp (C)')
-    title('Internal Temperature of Soyuz Vs. Time (With Human Survivability Limits)') 
+    ylabel('Spacecraft Internal temp (C)');
+    title('Internal Temperature of Soyuz Vs. Time (With Human Survivability Limits)');
 
 % Old Plots, No longer needed: 
     %figure();
