@@ -21,5 +21,7 @@ The code in this repository produces the following plots:
 ![Soyuz Re-entry Trajectory Plots](Results/Trajectory_Results.png)
 ### Re-entry Thermal Simulation Results
 ![Soyuz Re-entry Heating Plots](Results/Heat_Results.png)
+### Crew / Spacecraft Danger Analysis
+![Internal Temperature Plot With Temp Limits](Results/Human_Factors_Temp.png)
 ## Final Report
 For those interested in reading the final report, it will be uploaded to the `Results` folder when completed.
