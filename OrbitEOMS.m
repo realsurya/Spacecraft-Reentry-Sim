@@ -26,7 +26,7 @@ function ydot = OrbitEOMS(t, y, Cd, mu, LD, Re, m, S)
     % Diff EQs
     dvdt = (-D/m) - (g*sin(gamma));
     dgammadt = ((L/m) - ((g - ((v^2)/r))*cos(gamma)))/v;
-    dsdt = (Re/r)*v*cos(gamma);
+    dsdt = ((Re*1000)/r)*v*cos(gamma);
     drdt = v*sin(gamma);
 
     % State Matrix

@@ -71,81 +71,83 @@ clear;clc;close all force hidden;
     plot(t(boolArr), q/1000, 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
-    ylabel('Heat flux (kW/m^2)')
-    title('Heat flux imparted on Spacecraft Vs. Time')
+    ylabel('Heat Flux (kW/m^2)')
+    title('Heat Flux Imparted to Soyuz Vs. Time')
 
     subplot(3,1,2);
     plot(x(2:end), Q, 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
     ylabel('Heat Transfer (Joules)')
-    title('Cumulative Heat Transfer to Spacecraft Vs. Time') 
+    title('Cumulative Heat Transfer (Energy Addition) to Soyuz Vs. Time') 
 
     subplot(3,1,3); hold on;
     plot(x(2:end), Tim+dT, 'LineWidth',2, 'LineStyle', '-');
     plot(x(2:end), Til+dT, 'LineWidth',1, 'LineStyle', '--', Color='Red');
     plot(x(2:end), Tiu+dT, 'LineWidth',1, 'LineStyle', '--', Color='Red');
-    grid on; legend(["Soyuz Internal Temp","Lower/Upper Bounds"]);
+    grid on; legend(["Soyuz Internal Temp (Mid)","Lower/Upper Bounds"]);
     xlabel('Time (sec)');
-    ylabel('Spacecraft internal temp (C)')
-    title('Internal temperature of Spacecraft Vs. Time') 
+    ylabel('Spacecraft Internal temp (C)')
+    title('Internal Temperature of Soyuz Vs. Time') 
 
 % Plot Reentry Trajectory:
     figure();
-    subplot(3,1,1);
+    sgtitle("Re-entry Simulation of Soyuz Spacecraft");
+    subplot(4,1,1);
+    plot(S(boolArr)./1000, h(boolArr)./1000, 'LineWidth',2);
+    grid on;
+    xlabel('Downrange Distance Travelled (km)');
+    ylabel('Height (km)');
+    title("Soyuz Spacecraft Re-entry Profile")
+
+    subplot(4,1,2);
     plot(t(boolArr), V(boolArr), 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
     ylabel('Velocity (m/s)')
-    title('Velocity of Spacecraft Vs. Time')
+    title('Velocity Magnitude of Soyuz Vs. Time')
     
-    subplot(3,1,2);
+    subplot(4,1,3);
     plot(t(boolArr), h(boolArr)./1000, 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
     ylabel('Height (km)');
-    title("Height of Spacecraft Vs. Time")
+    title("Height of Soyuz Vs. Time")
     
-    subplot(3,1,3);
+    subplot(4,1,4);
     plot(t(boolArr), M(boolArr), 'LineWidth',2);
     grid on;
     xlabel('Time (sec)');
     ylabel('Mach Number')
-    title('Mach Number of Spacecraft Vs. Time')
+    title('Mach Number of Soyuz Vs. Time')
 
-%figure();
-%plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
-%grid on;
-%xlabel('Time (sec)');
-%ylabel('Conv heat Transfer Coeff (W/m^2*k)')
-%title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
-
-%figure();
-%plot(t(boolArr), Gamma(boolArr));
-%grid on;
-%xlabel('Time (sec)');
-%ylabel('FPA (deg)');
-%title('FPA of Spacecraft Vs. Time');
-
-%figure();
-%plot(t(boolArr), S(boolArr));
-%grid on;
-%xlabel('Time (sec)');
-%ylabel('Downrange (m)');
-%title("Downrange Motion of Spacecraft Vs. Time")
-
-
-%tmod = t(boolArr);
-%figure();
-%plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
-%grid on;
-%xlabel('Time (sec)');
-%ylabel('G Loading (g)');
-%title("Axial Loading of Spacecraft Vs. Time");
-
-%figure();
-%plot(S(boolArr), h(boolArr));
-%grid on;
-%xlabel('Downrange (m)');
-%ylabel('Height (m)');
-%title("Reentry Profile of Spacecraft")
+% Old Plots, No longer needed: 
+    %figure();
+    %plot(t(boolArr), ccoeff(boolArr), 'LineWidth',2);
+    %grid on;
+    %xlabel('Time (sec)');
+    %ylabel('Conv heat Transfer Coeff (W/m^2*k)')
+    %title('Conv heat Transfer Coeff of Spacecraft Vs. Time')
+    
+    %figure();
+    %plot(t(boolArr), Gamma(boolArr));
+    %grid on;
+    %xlabel('Time (sec)');
+    %ylabel('FPA (deg)');
+    %title('FPA of Spacecraft Vs. Time');
+    
+    %figure();
+    %plot(t(boolArr), S(boolArr));
+    %grid on;
+    %xlabel('Time (sec)');
+    %ylabel('Downrange (m)');
+    %title("Downrange Motion of Spacecraft Vs. Time")
+    
+    
+    %tmod = t(boolArr);
+    %figure();
+    %plot(tmod(2:end), (diff(V(boolArr))./diff(t(boolArr)))/9.8);
+    %grid on;
+    %xlabel('Time (sec)');
+    %ylabel('G Loading (g)');
+    %title("Axial Loading of Spacecraft Vs. Time");
