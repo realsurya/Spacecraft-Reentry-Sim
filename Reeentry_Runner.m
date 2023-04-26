@@ -92,7 +92,6 @@ clear;clc;close all force hidden;
 
 % Plot Reentry Trajectory:
     figure();
-    sgtitle("Re-entry Simulation of Soyuz Spacecraft");
     subplot(4,1,1);
     plot(S(boolArr)./1000, h(boolArr)./1000, 'LineWidth',2);
     grid on;
