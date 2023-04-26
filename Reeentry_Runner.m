@@ -51,9 +51,9 @@ clear;clc;close all force hidden;
     q = .02.*(.08/4).*(density( ... % Calculate instantaneous heat flux
         h(boolArr)./1000)).*(power(v_excl,3));
 
-    Tim = 35; % Initial spacecraft temp condition bounds (C)
-    Tiu = 40;
-    Til = 30;
+    Tim = 29; % Initial spacecraft temp condition bounds (C)
+    Tiu = 30;
+    Til = 28;
     cp = 700; % Spacecraft specific heat capacity
 
     x = t(boolArr);

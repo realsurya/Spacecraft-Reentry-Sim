@@ -7,10 +7,10 @@ This project was inspired by the ECS system failure and coolant leak on the Soyu
 
 Our group was interested in simulating the re-entry of Soyuz MS-22 using knowledge from dynamics classes. Additionally, we leveraged knowledge from AAE 338 (and made a lot of assumptions) to calculate the heating and internal temperature of the spacecraft over time. Ultimately, we were interested in assessing the probability of crew survival if they were forced to re-enter on the damaged spacecraft.
 
-Feel free to browse our code! The code is thoroughly commented so it should be readable to outsiders.
+Feel free to browse the code! The code is thoroughly commented so it should be readable to outsiders.
 
 ## Running Instructions
-The project was initially written in Python, but we instead switched to MATLAB to make it easier for all group members to understand the code.
+The project was initially written in Python, but I instead switched to MATLAB to make it easier for all group members to understand the code.
 
 To run this project, simply use MATLAB to run the `Reentry_Runner.m` script. This main file will make all the calls necessary to plot the re-entry profile and thermal analysis.
 
