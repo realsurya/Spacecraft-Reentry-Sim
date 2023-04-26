@@ -1,6 +1,7 @@
 function ydot = OrbitEOMS(t, y, Cd, mu, LD, Re, m, S)
     % This file depicts the EOMs for Planar Flight over a spherical
-    % nonrotating planet to be used for reentry. the parameters are:
+    % nonrotating planet to be used for reentry. See parameters list.
+    % AAE 338 Final Project - Surya M. (smanikha@purdue.edu)
         % Cd: Spacecraft drag coeff
         % mu: Gravitational parameter of orbiting body
         % LD: Spacecraft Lift to Drag Ratio
@@ -8,7 +9,7 @@ function ydot = OrbitEOMS(t, y, Cd, mu, LD, Re, m, S)
         % m: Mass of spacecraft
         % S: cross sectional area of object
     
-    % state vars    
+    % State Variables   
     v = y(1);
     gamma = y(2);
     s = y(3);
@@ -25,10 +26,9 @@ function ydot = OrbitEOMS(t, y, Cd, mu, LD, Re, m, S)
     % Diff EQs
     dvdt = (-D/m) - (g*sin(gamma));
     dgammadt = ((L/m) - ((g - ((v^2)/r))*cos(gamma)))/v;
-    dsdt = (Re/r)*v*cos(gamma);
+    dsdt = ((Re*1000)/r)*v*cos(gamma);
     drdt = v*sin(gamma);
 
-    %pause(.1)
+    % State Matrix
     ydot = [dvdt;dgammadt;dsdt;drdt];
-
 end
