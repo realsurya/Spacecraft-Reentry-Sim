@@ -18,8 +18,8 @@ To run this project, simply use MATLAB to run the `Reentry_Runner.m` script. Thi
 The code in this repository produces the following plots:
 
 ### Re-entry Trajectory Simulation Results
-![Soyuz Re-entry Trajectory Plots](/Users/surya/Desktop/Purdue Spring 23/AAE 338-001 Thermal Sciences/Spacecraft-Reentry-Sim/Results/Trajectory_Results.png)
+![Soyuz Re-entry Trajectory Plots](Results/Trajectory_Results.png)
 ### Re-entry Thermal Simulation Results
-![Soyuz Re-entry Heating Plots](/Users/surya/Desktop/Purdue Spring 23/AAE 338-001 Thermal Sciences/Spacecraft-Reentry-Sim/Results/Heat_Results.png)
+![Soyuz Re-entry Heating Plots](Results/Heat_Results.png)
 ## Final Report
 For those interested in reading the final report, it will be uploaded to the `Results` folder when completed.
