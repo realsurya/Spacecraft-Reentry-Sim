@@ -127,7 +127,9 @@ clear;clc;close all force hidden;
     plot(x(2:end), Tiu+dT, 'LineWidth',1, 'LineStyle', '--', Color='black');
     yline(40, 'g-', 'LineWidth',2);
     yline(53, 'r-', 'LineWidth',2);
-    grid on; legend(["Soyuz Internal Temp (Mid)","Lower/Upper Internal Temp Bounds","", "Human Safety Threshold", "Extreme Danger Threshold"]);
+    grid on; 
+    legend(["Soyuz Internal Temp (Mid)","Lower/Upper Internal Temp Bounds",...
+            "", "Human Safety Threshold", "Extreme Danger Threshold"]);
     xlabel('Time (sec)');
     ylabel('Spacecraft Internal temp (C)')
     title('Internal Temperature of Soyuz Vs. Time (With Human Survivability Limits)') 
