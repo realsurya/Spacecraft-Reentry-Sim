@@ -14,7 +14,10 @@ The project was initially written in Python, but I instead switched to MATLAB to
 
 To run this project, simply use MATLAB to run the `Reentry_Runner.m` script. This main file will make all the calls necessary to plot the re-entry profile and thermal analysis.
 
-## Results
+## Final Report
+For those interested in reading the final report, it can be found in the `Results` folder. I promise it's an interesting read!
+
+## Abridged Results
 The code in this repository produces the following plots:
 
 ### Re-entry Trajectory Simulation Results
@@ -23,5 +26,4 @@ The code in this repository produces the following plots:
 ![Soyuz Re-entry Heating Plots](Results/Heat_Results.png)
 ### Crew / Spacecraft Danger Analysis
 ![Internal Temperature Plot With Temp Limits](Results/Human_Factors_Temp.png)
-## Final Report
-For those interested in reading the final report, it will be uploaded to the `Results` folder when completed.
+
